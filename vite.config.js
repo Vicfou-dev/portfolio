@@ -7,9 +7,9 @@ export default defineConfig({
     chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
-        manualChunks: {
-          three: ['three', '@react-three/fiber', '@react-three/drei'],
-          framer: ['framer-motion'],
+        manualChunks(id) {
+          if (id.includes('three') || id.includes('@react-three')) return 'three'
+          if (id.includes('framer-motion')) return 'framer'
         },
       },
     },
