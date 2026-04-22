@@ -6,10 +6,10 @@ const Scene = lazy(() => import('./Scene'))
 const PHOTO = 'https://media.licdn.com/dms/image/v2/D5603AQGbIK-oMjn6_A/profile-displayphoto-scale_400_400/B56Z2WFhfXKoAg-/0/1776339530087?e=1778112000&v=beta&t=DbX5cvpMbj2Kq5SGd-rtbrE0IxTpVABo7_bcfP47g-Q'
 
 const logoList = [
-  { src: '/img/firefox.webp',        alt: 'Mozilla Firefox',  size: 'max-h-10 sm:max-h-14 md:max-h-16 max-w-[140px] md:max-w-[180px]' },
-  { src: '/img/total-energies.webp', alt: 'TotalEnergies',    size: 'max-h-14 sm:max-h-18 md:max-h-20 max-w-[180px] md:max-w-[220px]' },
-  { src: '/img/marine.webp',         alt: 'Marine Nationale', size: 'max-h-14 sm:max-h-18 md:max-h-20 max-w-[180px] md:max-w-[220px]' },
-  { src: '/img/edf.webp',            alt: 'EDF',              size: 'max-h-14 sm:max-h-18 md:max-h-20 max-w-[180px] md:max-w-[220px]' },
+  { src: '/img/firefox.webp',        alt: 'Mozilla Firefox',  size: 'max-h-14 sm:max-h-18 md:max-h-20 max-w-[160px] md:max-w-[200px]' },
+  { src: '/img/total-energies.webp', alt: 'TotalEnergies',    size: 'max-h-16 sm:max-h-20 md:max-h-24 max-w-[200px] md:max-w-[260px]' },
+  { src: '/img/marine.webp',         alt: 'Marine Nationale', size: 'max-h-16 sm:max-h-20 md:max-h-24 max-w-[200px] md:max-w-[260px]' },
+  { src: '/img/edf.webp',            alt: 'EDF',              size: 'max-h-16 sm:max-h-20 md:max-h-24 max-w-[200px] md:max-w-[260px]' },
 ]
 
 function ClientLogos() {
@@ -20,7 +20,7 @@ function ClientLogos() {
       transition={{ duration: 0.7, delay: 1.1 }}
       className="mt-16 pt-8 border-t border-white/10"
     >
-      <p className="font-mono text-white/35 text-[10px] tracking-[0.35em] uppercase mb-7">
+      <p className="font-mono text-white/60 text-xs tracking-[0.35em] uppercase mb-7">
         Trusted by
       </p>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/10">
@@ -29,7 +29,7 @@ function ClientLogos() {
             <img
               src={logo.src}
               alt={logo.alt}
-              className={`${logo.size} w-auto object-contain grayscale invert opacity-55 hover:opacity-90 transition-opacity duration-300`}
+              className={`${logo.size} w-auto object-contain grayscale invert opacity-80 hover:opacity-100 transition-opacity duration-300`}
             />
           </div>
         ))}
