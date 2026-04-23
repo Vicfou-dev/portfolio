@@ -14,10 +14,10 @@ export default {
         accent: '#6EE7F7',
         'accent-dim': '#3BBDD4',
         'accent-glow': 'rgba(110,231,247,0.15)',
-        muted: '#6B7280',
+        muted: '#7E8A96',
         subtle: '#374151',
-        primary: '#F5F0EB',
-        secondary: '#9CA3AF',
+        primary: '#F8F9FA',
+        secondary: '#C4CDD6',
       },
       fontFamily: {
         display: ['Geist Mono', 'JetBrains Mono', 'monospace'],

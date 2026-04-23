@@ -102,7 +102,7 @@ function Panel({ num, label, img, headline, body, quote, list, accent = false })
         className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"
       />
       {/* Overlays */}
-      <div className="absolute inset-0 bg-bg/55 pointer-events-none" />
+      <div className="absolute inset-0 bg-bg/72 pointer-events-none" />
       {/* Top fade — fondu depuis le bg */}
       <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-bg to-transparent pointer-events-none" />
       {/* Bottom fade — fondu vers le bg */}
@@ -117,18 +117,18 @@ function Panel({ num, label, img, headline, body, quote, list, accent = false })
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.1 }}
         >
-          <span className="font-mono text-[10px] tracking-[0.35em] uppercase mb-5 block"
-            style={{ color: accent ? COLOR : 'rgba(107,114,128,0.7)' }}>
+          <span className="font-mono text-xs tracking-[0.35em] uppercase mb-5 block"
+            style={{ color: accent ? COLOR : 'rgba(180,190,200,0.85)' }}>
             {num} / {label}
           </span>
-          <h2 className="text-xl md:text-2xl font-light text-primary leading-snug mb-5 max-w-lg">
+          <h2 className="text-2xl md:text-3xl font-light text-primary leading-snug mb-5 max-w-lg">
             {headline}
           </h2>
 
           {body && (
             <div className="space-y-3 max-w-lg">
               {body.map((p, i) => (
-                <p key={i} className="text-secondary text-sm leading-relaxed">{p}</p>
+                <p key={i} className="text-primary/75 text-base leading-relaxed">{p}</p>
               ))}
             </div>
           )}
@@ -136,7 +136,7 @@ function Panel({ num, label, img, headline, body, quote, list, accent = false })
           {list && (
             <ul className="mt-4 space-y-2 max-w-lg">
               {list.map((item, i) => (
-                <li key={i} className="flex items-start gap-2.5 text-secondary text-sm">
+                <li key={i} className="flex items-start gap-2.5 text-primary/75 text-base">
                   <span className="mt-1.5 w-1 h-1 rounded-full flex-shrink-0" style={{ background: COLOR }} />
                   {item}
                 </li>
@@ -146,7 +146,7 @@ function Panel({ num, label, img, headline, body, quote, list, accent = false })
 
           {quote && (
             <div className="mt-5 border-l-2 pl-5 py-1" style={{ borderColor: COLOR }}>
-              <p className="text-primary font-light text-base leading-relaxed italic">{quote}</p>
+              <p className="text-primary font-light text-lg leading-relaxed italic">{quote}</p>
             </div>
           )}
         </motion.div>

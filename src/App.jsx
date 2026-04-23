@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from 'react'
+import { AnimatePresence } from 'framer-motion'
 import Loader from './components/Loader'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -10,10 +11,12 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import CaseStudyYomimanga from './components/CaseStudyYomimanga'
 import CaseStudyNudge from './components/CaseStudyNudge'
+import QRLinks from './components/QRLinks'
 
 export default function App() {
   const [loaded, setLoaded] = useState(false)
   const [page, setPage] = useState('home')
+  const [qrOpen, setQrOpen] = useState(false)
 
   const handleLoadComplete = useCallback(() => {
     setLoaded(true)
@@ -45,7 +48,7 @@ export default function App() {
       {/* Main site */}
       {loaded && page === 'home' && (
         <div className="min-h-screen bg-bg text-primary">
-          <Navbar />
+          <Navbar onQRLinks={() => setQrOpen(true)} />
           <main>
             <Hero />
             <Projects onCaseStudy={goToCaseStudy} />
@@ -58,6 +61,11 @@ export default function App() {
           <CaseStudyNudge onOpen={goToCaseStudy} />
         </div>
       )}
+
+      {/* QR Links overlay — PWA only */}
+      <AnimatePresence>
+        {qrOpen && <QRLinks onClose={() => setQrOpen(false)} />}
+      </AnimatePresence>
     </>
   )
 }
