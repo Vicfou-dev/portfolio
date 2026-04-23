@@ -110,7 +110,7 @@ function QRCard({ link, color, prefix, index, onExpand }) {
         )}
         <p className="text-primary text-sm font-medium leading-tight">{link.label}</p>
         <p className="font-mono text-xs text-muted truncate mt-0.5">{link.mono}</p>
-        <p className="font-mono text-[10px] text-muted/50 mt-2 uppercase tracking-widest group-hover/link:text-muted transition-colors">Ouvrir ↗</p>
+        <p className="font-mono text-[10px] text-muted/50 mt-2 uppercase tracking-widest group-hover/link:text-muted transition-colors">Open ↗</p>
       </a>
     </motion.div>
   )
