@@ -95,11 +95,15 @@ function BrowserMock({ project, loaded }) {
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300"
-              style={{ background: `${project.color}16` }}
+              className="group absolute inset-0 flex items-center justify-center"
             >
+              {/* bg overlay */}
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                style={{ background: `${project.color}16` }}
+              />
               <span
-                className="font-mono text-xs px-5 py-2.5 rounded-sm border backdrop-blur-sm"
+                className="relative font-mono text-xs px-5 py-2.5 rounded-sm border backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 style={{
                   color: project.color,
                   borderColor: `${project.color}50`,
