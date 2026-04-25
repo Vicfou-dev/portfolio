@@ -158,61 +158,64 @@ function ProjectCard({ project, index, onCaseStudy }) {
         style={{ background: `radial-gradient(600px at 50% 0%, ${project.color}10, transparent 60%)` }}
       />
 
-      {/* Mobile — iframe as background */}
-      {inView && (
-        <div className="md:hidden absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-          <iframe
-            src={project.url}
-            title=""
-            tabIndex={-1}
-            className="absolute top-0 left-0 border-0 pointer-events-none select-none"
-            style={{
-              width: '166.67%',
-              height: '166.67%',
-              transform: 'scale(0.6)',
-              transformOrigin: 'top left',
-            }}
-            sandbox="allow-scripts allow-same-origin"
-          />
-          <div className="absolute inset-0 bg-bg/[92%]" />
-          <div className="absolute inset-0 bg-gradient-to-b from-bg/80 via-bg/60 to-bg/90" />
-        </div>
-      )}
-
       <div className={`relative z-10 grid md:grid-cols-2 ${isEven ? '' : 'md:[direction:rtl]'}`}>
 
         {/* INFO COLUMN */}
         <div className={`p-8 md:p-10 flex flex-col ${isEven ? '' : 'md:[direction:ltr]'}`}>
-          {/* Header */}
-          <div className="flex items-start justify-between gap-4 mb-6">
-            <div className="flex items-center gap-3">
-              <span className="font-mono text-muted text-xs">{project.number}</span>
-              <span className="font-mono text-xs text-secondary uppercase tracking-widest">{project.category}</span>
+          {/* Header + title — iframe background on mobile only */}
+          <div className="relative overflow-hidden rounded-sm mb-5 -mx-8 md:mx-0 -mt-8 md:mt-0 px-8 md:px-0 pt-8 md:pt-0 pb-6 md:pb-0">
+            {/* Mobile iframe background */}
+            {inView && (
+              <div className="md:hidden absolute inset-0 pointer-events-none" aria-hidden="true">
+                <iframe
+                  src={project.url}
+                  title=""
+                  tabIndex={-1}
+                  className="absolute top-0 left-0 border-0 pointer-events-none select-none"
+                  style={{
+                    width: '166.67%',
+                    height: '166.67%',
+                    transform: 'scale(0.6)',
+                    transformOrigin: 'top left',
+                  }}
+                  sandbox="allow-scripts allow-same-origin"
+                />
+                <div className="absolute inset-0 bg-bg/[85%]" />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-bg/30 to-bg" />
+              </div>
+            )}
+
+            {/* Header */}
+            <div className="relative flex items-start justify-between gap-4 mb-6">
+              <div className="flex items-center gap-3">
+                <span className="font-mono text-muted text-xs">{project.number}</span>
+                <span className="font-mono text-xs text-secondary uppercase tracking-widest">{project.category}</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <StatusBadge status={project.status} />
+                <span className="font-mono text-muted text-xs">{project.year}</span>
+                {project.id === 'yomimanga' && (
+                  <span className="font-mono text-[10px] tracking-widest uppercase border px-2 py-0.5 rounded-sm" style={{ color: project.color, borderColor: `${project.color}40` }}>
+                    Case study
+                  </span>
+                )}
+              </div>
             </div>
-            <div className="flex items-center gap-3">
-              <StatusBadge status={project.status} />
-              <span className="font-mono text-muted text-xs">{project.year}</span>
-              {project.id === 'yomimanga' && (
-                <span className="font-mono text-[10px] tracking-widest uppercase border px-2 py-0.5 rounded-sm" style={{ color: project.color, borderColor: `${project.color}40` }}>
-                  Case study
-                </span>
-              )}
-            </div>
+
+            {/* Title */}
+            <h3
+              itemProp="name"
+              className="relative text-3xl md:text-4xl font-light mb-3 transition-colors duration-300"
+              style={{ color: expanded ? project.color : '#F5F0EB' }}
+            >
+              {project.name}
+            </h3>
+
+            {/* Tagline */}
+            <p itemProp="description" className="relative text-secondary text-base leading-relaxed max-w-sm">
+              {project.tagline}
+            </p>
           </div>
-
-          {/* Title */}
-          <h3
-            itemProp="name"
-            className="text-3xl md:text-4xl font-light mb-3 transition-colors duration-300"
-            style={{ color: expanded ? project.color : '#F5F0EB' }}
-          >
-            {project.name}
-          </h3>
-
-          {/* Tagline */}
-          <p itemProp="description" className="text-secondary text-base leading-relaxed mb-5 max-w-sm">
-            {project.tagline}
-          </p>
 
           {/* Role */}
           <div className="flex items-center gap-2 mb-2">
