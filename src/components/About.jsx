@@ -89,7 +89,7 @@ export default function About() {
           >
             <div className="relative w-full aspect-square max-w-[280px] mx-auto md:mx-0 overflow-hidden rounded-sm">
               <img
-                src="https://media.licdn.com/dms/image/v2/D5603AQGbIK-oMjn6_A/profile-displayphoto-scale_400_400/B56Z2WFhfXKoAg-/0/1776339530087?e=1778112000&v=beta&t=DbX5cvpMbj2Kq5SGd-rtbrE0IxTpVABo7_bcfP47g-Q"
+                src="/img/victor.png"
                 alt="Victor"
                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                 loading="lazy"

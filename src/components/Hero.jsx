@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 
 const Scene = lazy(() => import('./Scene'))
 
-const PHOTO = 'https://media.licdn.com/dms/image/v2/D5603AQGbIK-oMjn6_A/profile-displayphoto-scale_400_400/B56Z2WFhfXKoAg-/0/1776339530087?e=1778112000&v=beta&t=DbX5cvpMbj2Kq5SGd-rtbrE0IxTpVABo7_bcfP47g-Q'
+const PHOTO = '/img/victor.png'
 
 const logoList = [
   { src: '/img/firefox.webp',        alt: 'Mozilla Firefox',  size: 'max-h-14 sm:max-h-18 md:max-h-20 max-w-[160px] md:max-w-[200px]' },
