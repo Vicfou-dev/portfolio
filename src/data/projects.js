@@ -79,6 +79,22 @@ export const projects = [
     url: 'https://syopus.com',
     number: '05',
   },
+  {
+    id: 'powerx',
+    name: 'powerx',
+    tagline: 'The global super wallet for Web3.',
+    proof: 'Built from scratch · Live in 2026 · Web3 · Social + Finance convergence',
+    category: 'Web3 · Crypto · Finance',
+    role: 'Founder · Product · Engineering',
+    status: 'Live',
+    year: '2026',
+    problem: 'Web3 wallets are fragmented, complex, and disconnected from social and creator economies — making crypto inaccessible for most users.',
+    value: 'powerx is a self-custodial super wallet combining social feed, chat, video, and exchange under a single identity — where social, creators, and finance converge.',
+    stack: ['Web3', 'Blockchain', 'React Native', 'Self-custodial', 'Social Finance'],
+    color: '#7C3AED',
+    url: 'https://www.powerx.one',
+    number: '06',
+  },
 ]
 
 export const skills = [
