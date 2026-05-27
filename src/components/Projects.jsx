@@ -79,18 +79,26 @@ function BrowserMock({ project, loaded, t }) {
       <div className="relative overflow-hidden" style={{ height: '340px' }}>
         {loaded ? (
           <>
-            <iframe
-              src={project.url}
-              title={`${project.name} live preview`}
-              className="border-0 pointer-events-none select-none"
-              style={{
-                width: '166.67%',
-                height: '166.67%',
-                transform: 'scale(0.6)',
-                transformOrigin: 'top left',
-              }}
-              sandbox="allow-scripts allow-same-origin"
-            />
+            {project.preview ? (
+              <img
+                src={project.preview}
+                alt={`${project.name} preview`}
+                className="absolute inset-0 w-full h-full object-cover object-top pointer-events-none select-none"
+              />
+            ) : (
+              <iframe
+                src={project.url}
+                title={`${project.name} live preview`}
+                className="border-0 pointer-events-none select-none"
+                style={{
+                  width: '166.67%',
+                  height: '166.67%',
+                  transform: 'scale(0.6)',
+                  transformOrigin: 'top left',
+                }}
+                sandbox="allow-scripts allow-same-origin"
+              />
+            )}
             {/* Hover overlay — click opens the site */}
             <a
               href={project.url}
@@ -173,22 +181,30 @@ function ProjectCard({ project, index, onCaseStudy, t, lang }) {
         <div className={`p-8 md:p-10 flex flex-col ${isEven ? '' : 'md:[direction:ltr]'}`}>
           {/* Header + title — iframe background on mobile only */}
           <div className="relative overflow-hidden rounded-sm mb-5 -mx-8 md:mx-0 -mt-8 md:mt-0 px-8 md:px-0 pt-8 md:pt-0 pb-6 md:pb-0">
-            {/* Mobile iframe background */}
+            {/* Mobile background */}
             {inView && (
               <div className="md:hidden absolute inset-0 pointer-events-none" aria-hidden="true">
-                <iframe
-                  src={project.url}
-                  title=""
-                  tabIndex={-1}
-                  className="absolute top-0 left-0 border-0 pointer-events-none select-none"
-                  style={{
-                    width: '166.67%',
-                    height: '166.67%',
-                    transform: 'scale(0.6)',
-                    transformOrigin: 'top left',
-                  }}
-                  sandbox="allow-scripts allow-same-origin"
-                />
+                {project.preview ? (
+                  <img
+                    src={project.preview}
+                    alt=""
+                    className="absolute inset-0 w-full h-full object-cover object-top"
+                  />
+                ) : (
+                  <iframe
+                    src={project.url}
+                    title=""
+                    tabIndex={-1}
+                    className="absolute top-0 left-0 border-0 pointer-events-none select-none"
+                    style={{
+                      width: '166.67%',
+                      height: '166.67%',
+                      transform: 'scale(0.6)',
+                      transformOrigin: 'top left',
+                    }}
+                    sandbox="allow-scripts allow-same-origin"
+                  />
+                )}
                 <div className="absolute inset-0 bg-bg/[85%]" />
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-bg/30 to-bg" />
               </div>

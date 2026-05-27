@@ -188,6 +188,7 @@ export const projects = [
     stack: ['Shopify', 'Web Design', 'E-commerce', 'Brand Identity', 'UX', 'Conversion'],
     color: '#22C55E',
     url: 'https://pureserre.com',
+    preview: '/img/pureserre.png',
     number: 'D02',
     type: 'digital',
     fr: {
