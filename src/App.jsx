@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from 'react'
 import { AnimatePresence } from 'framer-motion'
+import { LangProvider } from './i18n/LangContext'
 import Loader from './components/Loader'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -33,39 +34,41 @@ export default function App() {
   }, [])
 
   return (
-    <>
-      {/* Grain noise overlay for premium texture */}
-      <div className="noise-overlay" aria-hidden="true" />
+    <LangProvider>
+      <>
+        {/* Grain noise overlay for premium texture */}
+        <div className="noise-overlay" aria-hidden="true" />
 
-      {/* Loading screen */}
-      {!loaded && <Loader onComplete={handleLoadComplete} />}
+        {/* Loading screen */}
+        {!loaded && <Loader onComplete={handleLoadComplete} />}
 
-      {/* Case study */}
-      {loaded && page === 'case-study-yomimanga' && (
-        <CaseStudyYomimanga onBack={goHome} />
-      )}
+        {/* Case study */}
+        {loaded && page === 'case-study-yomimanga' && (
+          <CaseStudyYomimanga onBack={goHome} />
+        )}
 
-      {/* Main site */}
-      {loaded && page === 'home' && (
-        <div className="min-h-screen bg-bg text-primary">
-          <Navbar onQRLinks={() => setQrOpen(true)} />
-          <main>
-            <Hero />
-            <Projects onCaseStudy={goToCaseStudy} />
-            <About />
-            <Approach />
-            <Proof />
-            <Contact />
-          </main>
-          <Footer />
-          <CaseStudyNudge onOpen={goToCaseStudy} />
-        </div>
-      )}
+        {/* Main site */}
+        {loaded && page === 'home' && (
+          <div className="min-h-screen bg-bg text-primary">
+            <Navbar onQRLinks={() => setQrOpen(true)} />
+            <main>
+              <Hero />
+              <Projects onCaseStudy={goToCaseStudy} />
+              <About />
+              <Approach />
+              <Proof />
+              <Contact />
+            </main>
+            <Footer />
+            <CaseStudyNudge onOpen={goToCaseStudy} />
+          </div>
+        )}
 
-      {/* QR Links overlay — PWA only */}
-      <AnimatePresence>
-        {qrOpen && <QRLinks onClose={() => setQrOpen(false)} />}
-      </AnimatePresence>
-    </>
+        {/* QR Links overlay — PWA only */}
+        <AnimatePresence>
+          {qrOpen && <QRLinks onClose={() => setQrOpen(false)} />}
+        </AnimatePresence>
+      </>
+    </LangProvider>
   )
 }

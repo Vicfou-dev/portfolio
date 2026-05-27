@@ -1,12 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-
-const navLinks = [
-  { label: 'About', href: '#about' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Approach', href: '#approach' },
-  { label: 'Contact', href: '#contact' },
-]
+import { useLang } from '../i18n/LangContext'
 
 function QRIcon() {
   return (
@@ -25,6 +19,14 @@ export default function Navbar({ onQRLinks }) {
   const [isPWA, setIsPWA] = useState(false)
   const { scrollYProgress } = useScroll()
   const progressWidth = useTransform(scrollYProgress, [0, 1], ['0%', '100%'])
+  const { lang, toggle, t } = useLang()
+
+  const navLinks = [
+    { label: t('nav_about'), href: '#about' },
+    { label: t('nav_projects'), href: '#projects' },
+    { label: t('nav_approach'), href: '#approach' },
+    { label: t('nav_contact'), href: '#contact' },
+  ]
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40)
@@ -80,6 +82,14 @@ export default function Navbar({ onQRLinks }) {
 
           {/* Right side */}
           <div className="hidden md:flex items-center gap-3">
+            {/* Language toggle */}
+            <button
+              onClick={toggle}
+              className="font-mono text-xs text-muted border border-border px-3 py-2 rounded-sm hover:text-accent hover:border-accent/40 transition-all duration-200 tracking-widest uppercase"
+              aria-label="Switch language"
+            >
+              {lang === 'en' ? 'FR' : 'EN'}
+            </button>
             {/* QR Links button — PWA only */}
             {isPWA && (
               <button
@@ -96,12 +106,20 @@ export default function Navbar({ onQRLinks }) {
               className="flex items-center gap-2 text-xs font-mono text-accent border border-accent/30 px-4 py-2 rounded-sm hover:bg-accent/10 hover:border-accent/60 transition-all duration-200"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse-slow" />
-              Selective collaborations
+              {t('nav_cta')}
             </a>
           </div>
 
           {/* Mobile right: QR button + hamburger */}
           <div className="md:hidden flex items-center gap-3">
+            {/* Language toggle — mobile */}
+            <button
+              onClick={toggle}
+              className="font-mono text-xs text-muted border border-border px-2.5 py-1.5 rounded-sm hover:text-accent hover:border-accent/40 transition-all duration-200 tracking-widest uppercase"
+              aria-label="Switch language"
+            >
+              {lang === 'en' ? 'FR' : 'EN'}
+            </button>
             {isPWA && (
               <button
                 onClick={onQRLinks}

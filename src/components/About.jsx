@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { motion, useInView, useScroll, useTransform, AnimatePresence } from 'framer-motion'
+import { useLang } from '../i18n/LangContext'
 
 const timelineItems = [
   {
@@ -49,6 +50,8 @@ export default function About() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
   const bgY = useTransform(scrollYProgress, [0, 1], ['-8%', '8%'])
   const [activeIndex, setActiveIndex] = useState(0)
+  const { t } = useLang()
+  const timelineItems = t('timelineItems')
 
   return (
     <section id="about" ref={ref} className="relative py-32 section-padding overflow-hidden" aria-label="About">
@@ -72,7 +75,7 @@ export default function About() {
           variants={fadeUp} custom={0}
           className="flex items-center gap-3 mb-16"
         >
-          <span className="font-mono text-accent text-xs tracking-[0.3em] uppercase">02 / About</span>
+          <span className="font-mono text-accent text-xs tracking-[0.3em] uppercase">{t('about_label')}</span>
           <div className="h-px bg-border flex-1 max-w-xs" />
         </motion.div>
 
@@ -98,7 +101,7 @@ export default function About() {
             </div>
             <div className="mt-4 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse-slow" />
-              <span className="font-mono text-accent text-xs tracking-widest">Available</span>
+              <span className="font-mono text-accent text-xs tracking-widest">{t('about_available')}</span>
             </div>
           </motion.div>
 
@@ -109,7 +112,7 @@ export default function About() {
               variants={fadeUp} custom={1}
               className="text-3xl md:text-4xl font-light leading-snug text-primary"
             >
-              I build products that don’t stay theoretical — they run in the real world.
+              {t('about_h2')}
             </motion.h2>
 
             <motion.p
@@ -117,9 +120,7 @@ export default function About() {
               variants={fadeUp} custom={2}
               className="text-secondary leading-relaxed"
             >
-              Over the past 10 years, I’ve designed, built, and scaled multiple
-              products — from early ideas to systems handling millions of
-              requests daily.
+              {t('about_p1')}
             </motion.p>
 
             <motion.p
@@ -127,9 +128,7 @@ export default function About() {
               variants={fadeUp} custom={3}
               className="text-secondary leading-relaxed"
             >
-              I work end-to-end: product, engineering, and infrastructure.
-              Not just shipping features — building systems that run, evolve,
-              and handle real usage.
+              {t('about_p2')}
             </motion.p>
 
             <motion.p
@@ -137,8 +136,7 @@ export default function About() {
               variants={fadeUp} custom={4}
               className="text-secondary leading-relaxed"
             >
-              My approach is simple: ship fast, learn from real users, and
-              iterate until it works at scale.
+              {t('about_p3')}
             </motion.p>
           </div>
           </div>
@@ -150,7 +148,7 @@ export default function About() {
               variants={fadeUp} custom={5}
               className="font-mono text-accent/40 text-[10px] tracking-[0.45em] uppercase mb-10"
             >
-              Process
+              {t('about_process')}
             </motion.p>
 
             <div className="grid md:grid-cols-[1fr_1.5fr] gap-0 md:gap-20 items-start">

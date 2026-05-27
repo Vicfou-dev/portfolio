@@ -1,5 +1,6 @@
 import { Suspense, lazy, useMemo } from 'react'
 import { motion } from 'framer-motion'
+import { useLang } from '../i18n/LangContext'
 
 const Scene = lazy(() => import('./Scene'))
 
@@ -12,7 +13,7 @@ const logoList = [
   { src: '/img/edf.webp',            alt: 'EDF',              size: 'max-h-16 sm:max-h-20 md:max-h-24 max-w-[200px] md:max-w-[260px]' },
 ]
 
-function ClientLogos() {
+function ClientLogos({ label }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -21,7 +22,7 @@ function ClientLogos() {
       className="mt-16 pt-8 border-t border-white/10"
     >
       <p className="font-mono text-white/60 text-xs tracking-[0.35em] uppercase mb-7">
-        Trusted by
+        {label}
       </p>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/10">
         {logoList.map((logo) => (
@@ -39,6 +40,7 @@ function ClientLogos() {
 }
 
 export default function Hero() {
+  const { t } = useLang()
   const prefersReducedMotion = useMemo(
     () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches,
     []
@@ -90,7 +92,7 @@ export default function Hero() {
             >
               <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse-slow" />
               <span className="font-mono text-accent text-xs tracking-[0.3em] uppercase">
-                Product · Engineering · Systems
+                {t('hero_label')}
               </span>
             </motion.div>
 
@@ -101,9 +103,9 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.35 }}
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light leading-[1.05] tracking-tight mb-7"
             >
-              <span className="text-primary block">I build systems</span>
-              <span className="text-gradient block font-normal">that don't stay</span>
-              <span className="text-primary block">as ideas.</span>
+              <span className="text-primary block">{t('hero_h1_1')}</span>
+              <span className="text-gradient block font-normal">{t('hero_h1_2')}</span>
+              <span className="text-primary block">{t('hero_h1_3')}</span>
             </motion.h1>
 
             {/* Subline */}
@@ -113,8 +115,7 @@ export default function Hero() {
               transition={{ duration: 0.7, delay: 0.55 }}
               className="text-secondary text-base md:text-lg max-w-md leading-relaxed mb-10"
             >
-              From first idea to real-world usage — I build, ship,
-              and scale products end-to-end.
+              {t('hero_sub')}
             </motion.p>
 
             {/* CTAs */}
@@ -128,7 +129,7 @@ export default function Hero() {
                 href="#projects"
                 className="group flex items-center gap-3 bg-accent text-bg text-sm font-medium px-6 py-3.5 rounded-sm hover:bg-accent/90 transition-all duration-200"
               >
-                Explore my work
+                {t('hero_cta_work')}
                 <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
@@ -137,7 +138,7 @@ export default function Hero() {
                 href="#contact"
                 className="text-sm text-secondary hover:text-primary border-b border-transparent hover:border-secondary/40 transition-all duration-200 pb-px"
               >
-                Get in touch
+                {t('hero_cta_contact')}
               </a>
             </motion.div>
 
@@ -204,7 +205,7 @@ export default function Hero() {
 
         {/* Clients — full width strip below the grid */}
         <div className="max-w-6xl mt-12">
-          <ClientLogos />
+          <ClientLogos label={t('hero_trusted')} />
         </div>
       </div>
 

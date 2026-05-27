@@ -1,5 +1,6 @@
 import { useRef, useState, useCallback } from 'react'
 import { motion, useInView, AnimatePresence, useMotionValue, useSpring } from 'framer-motion'
+import { useLang } from '../i18n/LangContext'
 
 function useTilt(strength = 18) {
   const cardRef = useRef(null)
@@ -44,7 +45,7 @@ function StatusBadge({ status }) {
   )
 }
 
-function BrowserMock({ project, loaded }) {
+function BrowserMock({ project, loaded, t }) {
   return (
     <div
       className="rounded-sm overflow-hidden border border-border"
@@ -97,7 +98,6 @@ function BrowserMock({ project, loaded }) {
               rel="noopener noreferrer"
               className="group absolute inset-0 flex items-center justify-center"
             >
-              {/* bg overlay */}
               <div
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 style={{ background: `${project.color}16` }}
@@ -110,7 +110,7 @@ function BrowserMock({ project, loaded }) {
                   background: `${project.color}18`,
                 }}
               >
-                Open site ↗
+                {t('open_site')}
               </span>
             </a>
           </>
@@ -120,7 +120,7 @@ function BrowserMock({ project, loaded }) {
               <svg className="w-8 h-8" fill="none" stroke={project.color} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
               </svg>
-              <span className="font-mono text-[10px]" style={{ color: project.color }}>Loading…</span>
+              <span className="font-mono text-[10px]" style={{ color: project.color }}>{t('loading')}</span>
             </div>
           </div>
         )}
@@ -129,13 +129,18 @@ function BrowserMock({ project, loaded }) {
   )
 }
 
-function ProjectCard({ project, index, onCaseStudy }) {
+function ProjectCard({ project, index, onCaseStudy, t, lang }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
   const [expanded, setExpanded] = useState(false)
   const isEven = index % 2 === 0
 
   const { cardRef, rotateX, rotateY, onMouseMove, onMouseLeave } = useTilt(18)
+
+  // Use FR translation if available and lang is 'fr'
+  const p = (lang === 'fr' && project.fr)
+    ? { ...project, ...project.fr }
+    : project
 
   return (
     <motion.article
@@ -193,14 +198,14 @@ function ProjectCard({ project, index, onCaseStudy }) {
             <div className="relative flex items-start justify-between gap-4 mb-6">
               <div className="flex items-center gap-3">
                 <span className="font-mono text-muted text-xs">{project.number}</span>
-                <span className="font-mono text-xs text-secondary uppercase tracking-widest">{project.category}</span>
+                <span className="font-mono text-xs text-secondary uppercase tracking-widest">{p.category}</span>
               </div>
               <div className="flex items-center gap-3">
                 <StatusBadge status={project.status} />
                 <span className="font-mono text-muted text-xs">{project.year}</span>
                 {project.id === 'yomimanga' && (
                   <span className="font-mono text-[10px] tracking-widest uppercase border px-2 py-0.5 rounded-sm" style={{ color: project.color, borderColor: `${project.color}40` }}>
-                    Case study
+                    {t('case_study')}
                   </span>
                 )}
               </div>
@@ -217,7 +222,7 @@ function ProjectCard({ project, index, onCaseStudy }) {
 
             {/* Tagline */}
             <p itemProp="description" className="relative text-secondary text-base leading-relaxed max-w-sm">
-              {project.tagline}
+              {p.tagline}
             </p>
           </div>
 
@@ -226,12 +231,12 @@ function ProjectCard({ project, index, onCaseStudy }) {
             <svg className="w-3.5 h-3.5 text-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
             </svg>
-            <span className="font-mono text-xs text-muted">{project.role}</span>
+            <span className="font-mono text-xs text-muted">{p.role}</span>
           </div>
 
           {/* Proof line */}
-          {project.proof && (
-            <p className="font-mono text-[11px] text-accent/70 mb-5 tracking-wide">{project.proof}</p>
+          {p.proof && (
+            <p className="font-mono text-[11px] text-accent/70 mb-5 tracking-wide">{p.proof}</p>
           )}
 
           {/* Stack */}
@@ -257,12 +262,12 @@ function ProjectCard({ project, index, onCaseStudy }) {
               >
                 <div className="border-t border-border pt-6 grid gap-4">
                   <div>
-                    <p className="font-mono text-[10px] text-muted uppercase tracking-widest mb-1.5">The Problem</p>
-                    <p className="text-secondary text-sm leading-relaxed">{project.problem}</p>
+                    <p className="font-mono text-[10px] text-muted uppercase tracking-widest mb-1.5">{t('the_problem')}</p>
+                    <p className="text-secondary text-sm leading-relaxed">{p.problem}</p>
                   </div>
                   <div>
-                    <p className="font-mono text-[10px] text-muted uppercase tracking-widest mb-1.5">What It Solves</p>
-                    <p className="text-secondary text-sm leading-relaxed">{project.value}</p>
+                    <p className="font-mono text-[10px] text-muted uppercase tracking-widest mb-1.5">{t('what_it_solves')}</p>
+                    <p className="text-secondary text-sm leading-relaxed">{p.value}</p>
                   </div>
                 </div>
               </motion.div>
@@ -275,7 +280,7 @@ function ProjectCard({ project, index, onCaseStudy }) {
               onClick={() => setExpanded(!expanded)}
               className="flex items-center gap-2 font-mono text-xs text-muted hover:text-primary transition-colors duration-200"
             >
-              <span>{expanded ? 'Less' : 'Details'}</span>
+              <span>{expanded ? t('less') : t('details')}</span>
               <motion.svg
                 animate={{ rotate: expanded ? 180 : 0 }}
                 className="w-3 h-3"
@@ -291,7 +296,7 @@ function ProjectCard({ project, index, onCaseStudy }) {
                   className="flex items-center gap-1.5 text-xs font-mono transition-all duration-200 hover:gap-2.5 opacity-70 hover:opacity-100"
                   style={{ color: project.color }}
                 >
-                  View case study
+                  {t('view_case_study')}
                   <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
@@ -304,7 +309,7 @@ function ProjectCard({ project, index, onCaseStudy }) {
                 className="flex items-center gap-2 text-xs font-mono transition-all duration-200 hover:gap-3"
                 style={{ color: project.color }}
               >
-                Open product
+                {project.type === 'digital' ? t('open_site').replace(' ↗', '') : t('open_product')}
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
@@ -320,7 +325,7 @@ function ProjectCard({ project, index, onCaseStudy }) {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 + index * 0.05 }}
           >
-            <BrowserMock project={project} loaded={inView} />
+            <BrowserMock project={project} loaded={inView} t={t} />
           </motion.div>
         </div>
 
@@ -329,9 +334,22 @@ function ProjectCard({ project, index, onCaseStudy }) {
   )
 }
 
+const TABS = ['all', 'products', 'digital']
+
 export default function Projects({ onCaseStudy }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-100px' })
+  const { t, lang } = useLang()
+  const [activeTab, setActiveTab] = useState('all')
+
+  const filtered = projects.filter((p) => {
+    if (activeTab === 'all') return true
+    if (activeTab === 'products') return p.type === 'product'
+    if (activeTab === 'digital') return p.type === 'digital'
+    return true
+  })
+
+  const tabLabel = { all: t('tab_all'), products: t('tab_products'), digital: t('tab_digital') }
 
   return (
     <section id="projects" ref={ref} className="py-28 section-padding" aria-label="Projects">
@@ -344,7 +362,7 @@ export default function Projects({ onCaseStudy }) {
             variants={fadeUp} custom={0}
             className="flex items-center gap-3 mb-8"
           >
-            <span className="font-mono text-accent text-xs tracking-[0.3em] uppercase">01 / Selected Work</span>
+            <span className="font-mono text-accent text-xs tracking-[0.3em] uppercase">{t('projects_label')}</span>
             <motion.div
               className="h-px bg-border flex-1 max-w-xs"
               initial={{ scaleX: 0, originX: 0 }}
@@ -358,8 +376,8 @@ export default function Projects({ onCaseStudy }) {
             variants={fadeUp} custom={1}
             className="text-3xl md:text-5xl font-light text-primary leading-tight"
           >
-            Built, shipped,{' '}
-            <span className="text-secondary font-light">and running.</span>
+            {t('projects_h2_1')}{' '}
+            <span className="text-secondary font-light">{t('projects_h2_2')}</span>
           </motion.h2>
 
           <motion.p
@@ -367,17 +385,57 @@ export default function Projects({ onCaseStudy }) {
             variants={fadeUp} custom={2}
             className="text-secondary mt-6 max-w-xl leading-relaxed"
           >
-            Not concepts or experiments — real products, built from scratch
-            and running in production.
+            {t('projects_sub')}
           </motion.p>
         </div>
 
-        {/* Projects list */}
-        <div className="grid gap-4">
-          {projects.map((project, i) => (
-            <ProjectCard key={project.id} project={project} index={i} onCaseStudy={onCaseStudy} />
+        {/* Category tabs */}
+        <motion.div
+          initial="hidden" animate={inView ? 'visible' : 'hidden'}
+          variants={fadeUp} custom={3}
+          className="flex items-center gap-1 mb-10 border border-border rounded-sm p-1 w-fit"
+        >
+          {TABS.map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className="relative font-mono text-xs px-5 py-2 rounded-sm transition-all duration-200"
+              style={activeTab === tab
+                ? { color: '#080808', background: '#6EE7F7' }
+                : { color: 'rgba(245,240,235,0.4)' }
+              }
+            >
+              {tabLabel[tab]}
+              {tab === 'digital' && (
+                <span
+                  className="ml-1.5 font-mono text-[9px] px-1.5 py-0.5 rounded-sm border"
+                  style={activeTab === tab
+                    ? { color: '#080808', borderColor: 'rgba(0,0,0,0.2)', background: 'rgba(0,0,0,0.1)' }
+                    : { color: '#6EE7F7', borderColor: 'rgba(110,231,247,0.3)' }
+                  }
+                >
+                  New
+                </span>
+              )}
+            </button>
           ))}
-        </div>
+        </motion.div>
+
+        {/* Projects list */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+            className="grid gap-4"
+          >
+            {filtered.map((project, i) => (
+              <ProjectCard key={project.id} project={project} index={i} onCaseStudy={onCaseStudy} t={t} lang={lang} />
+            ))}
+          </motion.div>
+        </AnimatePresence>
       </div>
     </section>
   )

@@ -1,5 +1,6 @@
 import { useRef, useCallback } from 'react'
 import { motion, useInView, useMotionValue, useSpring, useScroll, useTransform } from 'framer-motion'
+import { useLang } from '../i18n/LangContext'
 
 function useTilt(strength = 18) {
   const ref = useRef(null)
@@ -20,33 +21,6 @@ function useTilt(strength = 18) {
   }, [rawX, rawY])
   return { ref, rotateX, rotateY, onMouseMove, onMouseLeave }
 }
-
-const pillars = [
-  {
-    number: '01',
-    title: 'Find the real problem',
-    description:
-      "Before writing a single line, I understand who the user is, what they actually feel, and why existing solutions let them down. The right product starts with the right question.",
-  },
-  {
-    number: '02',
-    title: 'Design for clarity',
-    description:
-      "Good design isn't decorative. It reduces friction, guides attention, and builds trust. I design interfaces that feel obvious the moment you see them.",
-  },
-  {
-    number: '03',
-    title: 'Execute with precision',
-    description:
-      "I build what I design. No translation loss between vision and reality. Full-stack, end-to-end, from prototype to production-ready product.",
-  },
-  {
-    number: '04',
-    title: 'Distribute with intention',
-    description:
-      "A product without an audience doesn't exist. SEO, content, community, growth — I treat distribution as a product function, not an afterthought.",
-  },
-]
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -84,6 +58,8 @@ export default function Approach() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
   const bgY = useTransform(scrollYProgress, [0, 1], ['-8%', '8%'])
+  const { t } = useLang()
+  const pillars = t('pillars')
 
   return (
     <section id="approach" ref={ref} className="relative py-32 section-padding overflow-hidden" aria-label="Approach">
@@ -105,7 +81,7 @@ export default function Approach() {
           variants={fadeUp} custom={0}
           className="flex items-center gap-3 mb-16"
         >
-          <span className="font-mono text-accent text-xs tracking-[0.3em] uppercase">03 / Approach</span>
+          <span className="font-mono text-accent text-xs tracking-[0.3em] uppercase">{t('approach_label')}</span>
           <motion.div
             className="h-px bg-border flex-1 max-w-xs"
             initial={{ scaleX: 0, originX: 0 }}
@@ -120,15 +96,14 @@ export default function Approach() {
             variants={fadeUp} custom={1}
             className="text-3xl md:text-4xl font-light text-primary leading-snug"
           >
-            How I build — and why it works.
+            {t('approach_h2')}
           </motion.h2>
           <motion.p
             initial="hidden" animate={inView ? 'visible' : 'hidden'}
             variants={fadeUp} custom={2}
             className="text-secondary leading-relaxed self-end"
           >
-            I don’t separate product, design, and engineering — I build
-            the full system. From first idea to production, end-to-end.
+            {t('approach_sub')}
           </motion.p>
         </div>
 

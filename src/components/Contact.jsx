@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
+import { useLang } from '../i18n/LangContext'
 
 const socials = [
   { label: 'GitHub', href: 'https://github.com/', mono: 'github.com/vicfou-dev' },
@@ -18,6 +19,7 @@ const fadeUp = {
 export default function Contact() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
+  const { t } = useLang()
 
   return (
     <section
@@ -40,7 +42,7 @@ export default function Contact() {
           variants={fadeUp} custom={0}
           className="flex items-center gap-3 mb-16"
         >
-          <span className="font-mono text-accent text-xs tracking-[0.3em] uppercase">05 / Contact</span>
+          <span className="font-mono text-accent text-xs tracking-[0.3em] uppercase">{t('contact_label')}</span>
           <div className="h-px bg-border flex-1 max-w-xs" />
         </motion.div>
 
@@ -50,8 +52,8 @@ export default function Contact() {
             variants={fadeUp} custom={1}
             className="text-4xl md:text-6xl font-light leading-tight text-primary mb-8"
           >
-            Let’s build something{' '}
-            <span className="text-gradient">together.</span>
+            {t('contact_h2_1')}{' '}
+            <span className="text-gradient">{t('contact_h2_2')}</span>
           </motion.h2>
 
           <motion.p
@@ -59,9 +61,7 @@ export default function Contact() {
             variants={fadeUp} custom={2}
             className="text-secondary text-lg leading-relaxed mb-12 max-w-xl"
           >
-            An ambitious project, a collaboration, a product conversation —
-            I reply to serious projects and meaningful conversations.
-            No forms: just a direct email.
+            {t('contact_sub')}
           </motion.p>
 
           <motion.div
