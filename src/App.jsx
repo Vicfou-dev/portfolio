@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'react'
 import { AnimatePresence } from 'framer-motion'
-import { LangProvider } from './i18n/LangContext'
+import { LangProvider, useLang } from './i18n/LangContext'
 import Loader from './components/Loader'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -13,6 +13,14 @@ import Footer from './components/Footer'
 import CaseStudyYomimanga from './components/CaseStudyYomimanga'
 import CaseStudyNudge from './components/CaseStudyNudge'
 import QRLinks from './components/QRLinks'
+
+function UAELeadLocaleSync() {
+  const { lang } = useLang()
+  useEffect(() => {
+    window.UAELead?.setLocale(lang)
+  }, [lang])
+  return null
+}
 
 export default function App() {
   const [loaded, setLoaded] = useState(false)
@@ -36,6 +44,7 @@ export default function App() {
   return (
     <LangProvider>
       <>
+        <UAELeadLocaleSync />
         {/* Grain noise overlay for premium texture */}
         <div className="noise-overlay" aria-hidden="true" />
 
