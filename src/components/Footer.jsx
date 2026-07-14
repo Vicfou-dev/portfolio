@@ -1,8 +1,11 @@
+import { Link, useLocation } from 'react-router'
 import { useLang } from '../i18n/LangContext'
 
 export default function Footer() {
   const year = new Date().getFullYear()
   const { t } = useLang()
+  const location = useLocation()
+  const isHome = location.pathname === '/'
 
   return (
     <footer className="border-t border-border section-padding py-8">
@@ -16,7 +19,18 @@ export default function Footer() {
         </span>
 
         <div className="flex items-center gap-6">
-          <a href="#hero" className="font-mono text-xs text-muted hover:text-accent transition-colors">{t('footer_top')}</a>
+          <Link
+            to={isHome ? '#hero' : '/'}
+            className="font-mono text-xs text-muted hover:text-accent transition-colors"
+          >
+            {t('footer_top')}
+          </Link>
+          <Link
+            to="/blog"
+            className="font-mono text-xs text-muted hover:text-accent transition-colors"
+          >
+            Blog
+          </Link>
           <span className="font-mono text-muted text-xs">
             {t('footer_built')}
           </span>

@@ -1,3 +1,6 @@
 node_modules
 .venv
 dist
+build
+dev-dist
+.react-router

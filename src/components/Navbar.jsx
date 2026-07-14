@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { Link } from 'react-router'
+import { Link, useLocation } from 'react-router'
 import { useLang } from '../i18n/LangContext'
 
 function QRIcon() {
@@ -21,13 +21,18 @@ export default function Navbar({ onQRLinks }) {
   const { scrollYProgress } = useScroll()
   const progressWidth = useTransform(scrollYProgress, [0, 1], ['0%', '100%'])
   const { lang, toggle, t } = useLang()
+  const location = useLocation()
+  const isHome = location.pathname === '/'
+
+  // Hash links: same-page anchor when on home, cross-route navigate otherwise
+  const hashHref = (hash) => isHome ? hash : `/${hash}`
 
   const navLinks = [
-    { label: t('nav_about'), href: '/#about' },
-    { label: t('nav_projects'), href: '/#projects' },
-    { label: t('nav_approach'), href: '/#approach' },
-    { label: t('nav_contact'), href: '/#contact' },
-    { label: 'Blog', href: '/blog', isRoute: true },
+    { label: t('nav_about'),    to: hashHref('#about') },
+    { label: t('nav_projects'), to: hashHref('#projects') },
+    { label: t('nav_approach'), to: hashHref('#approach') },
+    { label: t('nav_contact'),  to: hashHref('#contact') },
+    { label: 'Blog',            to: '/blog' },
   ]
 
   useEffect(() => {
@@ -44,6 +49,9 @@ export default function Navbar({ onQRLinks }) {
     return () => mq.removeEventListener('change', handler)
   }, [])
 
+  const linkClass = "text-sm text-secondary hover:text-primary transition-colors duration-200 tracking-wide"
+  const mobileLinkClass = "text-secondary hover:text-primary text-base transition-colors"
+
   return (
     <>
       {/* Scroll progress */}
@@ -57,43 +65,31 @@ export default function Navbar({ onQRLinks }) {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.1 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? 'bg-bg/90 backdrop-blur-md border-b border-border'
-            : 'bg-transparent'
+          scrolled ? 'bg-bg/90 backdrop-blur-md border-b border-border' : 'bg-transparent'
         }`}
       >
         <nav className="section-padding flex items-center justify-between h-16">
           {/* Logo */}
-          <a href="#" className="font-mono text-accent text-sm tracking-[0.2em] uppercase hover:opacity-70 transition-opacity">
+          <Link to="/" className="font-mono text-accent text-sm tracking-[0.2em] uppercase hover:opacity-70 transition-opacity">
             Victor
-          </a>
+          </Link>
 
           {/* Desktop links */}
           <ul className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <li key={link.href}>
-                {link.isRoute ? (
-                  <Link
-                    to={link.href}
-                    className="text-sm text-secondary hover:text-primary transition-colors duration-200 tracking-wide"
-                  >
-                    {link.label}
-                  </Link>
-                ) : (
-                  <a
-                    href={link.href}
-                    className="text-sm text-secondary hover:text-primary transition-colors duration-200 tracking-wide"
-                  >
-                    {link.label}
-                  </a>
-                )}
+              <li key={link.to}>
+                <Link
+                  to={link.to}
+                  className={`${linkClass} ${link.to === '/blog' && location.pathname.startsWith('/blog') ? 'text-accent' : ''}`}
+                >
+                  {link.label}
+                </Link>
               </li>
             ))}
           </ul>
 
           {/* Right side */}
           <div className="hidden md:flex items-center gap-3">
-            {/* Language toggle */}
             <button
               onClick={toggle}
               className="font-mono text-xs text-muted border border-border px-3 py-2 rounded-sm hover:text-accent hover:border-accent/40 transition-all duration-200 tracking-widest uppercase"
@@ -101,7 +97,6 @@ export default function Navbar({ onQRLinks }) {
             >
               {lang === 'en' ? 'FR' : 'EN'}
             </button>
-            {/* QR Links button — PWA only */}
             {isPWA && (
               <button
                 onClick={onQRLinks}
@@ -112,18 +107,17 @@ export default function Navbar({ onQRLinks }) {
                 Links
               </button>
             )}
-            <a
-              href="#contact"
+            <Link
+              to={hashHref('#contact')}
               className="flex items-center gap-2 text-xs font-mono text-accent border border-accent/30 px-4 py-2 rounded-sm hover:bg-accent/10 hover:border-accent/60 transition-all duration-200"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse-slow" />
               {t('nav_cta')}
-            </a>
+            </Link>
           </div>
 
-          {/* Mobile right: QR button + hamburger */}
+          {/* Mobile right */}
           <div className="md:hidden flex items-center gap-3">
-            {/* Language toggle — mobile */}
             <button
               onClick={toggle}
               className="font-mono text-xs text-muted border border-border px-2.5 py-1.5 rounded-sm hover:text-accent hover:border-accent/40 transition-all duration-200 tracking-widest uppercase"
@@ -162,26 +156,26 @@ export default function Navbar({ onQRLinks }) {
           >
             <ul className="section-padding py-6 flex flex-col gap-5">
               {navLinks.map((link) => (
-                <li key={link.href}>
-                  {link.isRoute ? (
-                    <Link
-                      to={link.href}
-                      className="text-secondary hover:text-primary text-base transition-colors"
-                      onClick={() => setMenuOpen(false)}
-                    >
-                      {link.label}
-                    </Link>
-                  ) : (
-                    <a
-                      href={link.href}
-                      className="text-secondary hover:text-primary text-base transition-colors"
-                      onClick={() => setMenuOpen(false)}
-                    >
-                      {link.label}
-                    </a>
-                  )}
+                <li key={link.to}>
+                  <Link
+                    to={link.to}
+                    className={mobileLinkClass}
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
                 </li>
               ))}
+              <li>
+                <Link
+                  to={hashHref('#contact')}
+                  className="flex items-center gap-2 text-sm font-mono text-accent"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse-slow" />
+                  {t('nav_cta')}
+                </Link>
+              </li>
             </ul>
           </motion.div>
         )}

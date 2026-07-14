@@ -1,5 +1,5 @@
 name = "portfolio"
-main = "build/server/index.js"
+main = "workers/app.js"
 compatibility_date = "2025-06-01"
 compatibility_flags = ["nodejs_compat"]
 

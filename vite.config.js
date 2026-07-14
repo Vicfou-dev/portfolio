@@ -1,13 +1,10 @@
 import { defineConfig } from 'vite'
 import { reactRouter } from '@react-router/dev/vite'
-import { cloudflareDevProxyVitePlugin } from '@react-router/dev/vite/cloudflare'
 import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig(({ isSsrBuild }) => ({
   plugins: [
-    cloudflareDevProxyVitePlugin(),
     reactRouter(),
-    // PWA only in client build
     !isSsrBuild && VitePWA({
       registerType: 'autoUpdate',
       injectRegister: null,

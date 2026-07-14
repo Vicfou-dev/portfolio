@@ -202,7 +202,6 @@ export const articles = [
       <p>The talent bar for that first hire is consequently very high. They need to understand product deeply enough to prioritize intelligently, and they need to own distribution end-to-end. That person is rare. Until I find them, I'll keep building.</p>
     `,
   },
-]
 
   {
     slug: 'react-native-performance-optimization',
@@ -465,6 +464,7 @@ export const articles = [
       <p>This is the hardest product challenge in Web3: building an abstraction layer over complexity that doesn't compromise the trustlessness that makes the technology valuable. We're working on it. So is everyone else. The wallets that solve it will define the next decade of finance.</p>
     `,
   },
+]
 
 export function getArticle(slug) {
   return articles.find((a) => a.slug === slug) ?? null
