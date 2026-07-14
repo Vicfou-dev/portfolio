@@ -4,11 +4,15 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "react-router dev",
+    "build": "react-router build",
+    "preview": "wrangler dev",
+    "deploy": "npm run build && wrangler deploy",
+    "typegen": "wrangler types"
   },
   "dependencies": {
+    "@react-router/cloudflare": "^8.2.0",
+    "@react-router/dev": "^8.2.0",
     "@react-three/drei": "^9.109.2",
     "@react-three/fiber": "^8.17.8",
     "framer-motion": "^11.3.24",
@@ -16,6 +20,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-intersection-observer": "^9.13.0",
+    "react-router": "^7.18.1",
     "three": "^0.167.1",
     "vite-plugin-pwa": "^1.2.0"
   },
@@ -27,6 +32,7 @@
     "postcss": "^8.4.40",
     "simple-icons": "^16.17.0",
     "tailwindcss": "^3.4.7",
-    "vite": "^8.0.9"
+    "vite": "^8.0.9",
+    "wrangler": "^4.110.0"
   }
 }

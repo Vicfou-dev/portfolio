@@ -77,6 +77,63 @@
   }
 }
 
+/* ── Article / Blog prose ─────────────────────────────────────── */
+.article-body h2 {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: #F8F9FA;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+}
+.article-body h3 {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #C4CDD6;
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+.article-body p {
+  color: #C4CDD6;
+  line-height: 1.85;
+  margin-bottom: 1.25rem;
+  font-size: 1rem;
+}
+.article-body ul, .article-body ol {
+  margin: 0.75rem 0 1.25rem 1.25rem;
+  color: #C4CDD6;
+  line-height: 1.85;
+}
+.article-body li {
+  margin-bottom: 0.5rem;
+}
+.article-body strong {
+  color: #F8F9FA;
+  font-weight: 500;
+}
+.article-body em {
+  color: #C4CDD6;
+  font-style: italic;
+}
+.article-body a {
+  color: #6EE7F7;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(110, 231, 247, 0.3);
+  transition: border-color 0.2s;
+}
+.article-body a:hover {
+  border-color: #6EE7F7;
+}
+.article-body code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85em;
+  background: #111111;
+  border: 1px solid #1E1E1E;
+  padding: 0.15em 0.4em;
+  border-radius: 3px;
+  color: #6EE7F7;
+}
+
 @layer utilities {
   .text-gradient {
     background: linear-gradient(135deg, #F5F0EB 0%, #6EE7F7 50%, #F5F0EB 100%);

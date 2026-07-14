@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
+import { Link } from 'react-router'
 import { useLang } from '../i18n/LangContext'
 
 function QRIcon() {
@@ -22,10 +23,11 @@ export default function Navbar({ onQRLinks }) {
   const { lang, toggle, t } = useLang()
 
   const navLinks = [
-    { label: t('nav_about'), href: '#about' },
-    { label: t('nav_projects'), href: '#projects' },
-    { label: t('nav_approach'), href: '#approach' },
-    { label: t('nav_contact'), href: '#contact' },
+    { label: t('nav_about'), href: '/#about' },
+    { label: t('nav_projects'), href: '/#projects' },
+    { label: t('nav_approach'), href: '/#approach' },
+    { label: t('nav_contact'), href: '/#contact' },
+    { label: 'Blog', href: '/blog', isRoute: true },
   ]
 
   useEffect(() => {
@@ -70,12 +72,21 @@ export default function Navbar({ onQRLinks }) {
           <ul className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <li key={link.href}>
-                <a
-                  href={link.href}
-                  className="text-sm text-secondary hover:text-primary transition-colors duration-200 tracking-wide"
-                >
-                  {link.label}
-                </a>
+                {link.isRoute ? (
+                  <Link
+                    to={link.href}
+                    className="text-sm text-secondary hover:text-primary transition-colors duration-200 tracking-wide"
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <a
+                    href={link.href}
+                    className="text-sm text-secondary hover:text-primary transition-colors duration-200 tracking-wide"
+                  >
+                    {link.label}
+                  </a>
+                )}
               </li>
             ))}
           </ul>
@@ -152,13 +163,23 @@ export default function Navbar({ onQRLinks }) {
             <ul className="section-padding py-6 flex flex-col gap-5">
               {navLinks.map((link) => (
                 <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className="text-secondary hover:text-primary text-base transition-colors"
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    {link.label}
-                  </a>
+                  {link.isRoute ? (
+                    <Link
+                      to={link.href}
+                      className="text-secondary hover:text-primary text-base transition-colors"
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <a
+                      href={link.href}
+                      className="text-secondary hover:text-primary text-base transition-colors"
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      {link.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>

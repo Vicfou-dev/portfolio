@@ -1,11 +1,14 @@
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { reactRouter } from '@react-router/dev/vite'
+import { cloudflareDevProxyVitePlugin } from '@react-router/dev/vite/cloudflare'
 import { VitePWA } from 'vite-plugin-pwa'
 
-export default defineConfig({
+export default defineConfig(({ isSsrBuild }) => ({
   plugins: [
-    react(),
-    VitePWA({
+    cloudflareDevProxyVitePlugin(),
+    reactRouter(),
+    // PWA only in client build
+    !isSsrBuild && VitePWA({
       registerType: 'autoUpdate',
       injectRegister: null,
       includeAssets: ['favicon.svg', 'pwa-icon.svg', 'robots.txt'],
@@ -36,25 +39,13 @@ export default defineConfig({
             handler: 'CacheFirst',
             options: { cacheName: 'gstatic-fonts-cache', expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 } },
           },
-          {
-            urlPattern: /^https:\/\/media\.licdn\.com\/.*/i,
-            handler: 'CacheFirst',
-            options: { cacheName: 'linkedin-img-cache', expiration: { maxEntries: 5, maxAgeSeconds: 60 * 60 * 24 * 7 } },
-          },
         ],
       },
-      devOptions: {
-        enabled: true,
-        type: 'module',
-      },
     }),
-  ],
-  server: {
-    port: 5174,
-  },
+  ].filter(Boolean),
   build: {
     chunkSizeWarningLimit: 1000,
-    rollupOptions: {
+    rollupOptions: isSsrBuild ? {} : {
       output: {
         manualChunks(id) {
           if (id.includes('three') || id.includes('@react-three')) return 'three'
@@ -63,4 +54,7 @@ export default defineConfig({
       },
     },
   },
-})
+  server: {
+    port: 5174,
+  },
+}))

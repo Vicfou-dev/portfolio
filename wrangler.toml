@@ -1,0 +1,10 @@
+name = "portfolio"
+main = "build/server/index.js"
+compatibility_date = "2025-06-01"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = "./build/client"
+
+[vars]
+NODE_ENV = "production"

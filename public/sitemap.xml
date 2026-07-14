@@ -4,5 +4,86 @@
     <loc>https://victor-morel.com/</loc>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+    <lastmod>2026-07-14</lastmod>
+  </url>
+  <url>
+    <loc>https://victor-morel.com/case/yomimanga</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-14</lastmod>
+  </url>
+  <url>
+    <loc>https://victor-morel.com/blog</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2026-07-14</lastmod>
+  </url>
+  <!-- Batch 1 -->
+  <url>
+    <loc>https://victor-morel.com/blog/voice-ai-production-lessons</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-06-15</lastmod>
+  </url>
+  <url>
+    <loc>https://victor-morel.com/blog/vibe-coding-what-actually-works</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-28</lastmod>
+  </url>
+  <url>
+    <loc>https://victor-morel.com/blog/scaling-solo-5m-daily-requests</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-04-10</lastmod>
+  </url>
+  <url>
+    <loc>https://victor-morel.com/blog/mcp-ai-agents-revolution</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-03-20</lastmod>
+  </url>
+  <url>
+    <loc>https://victor-morel.com/blog/product-engineering-2026</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-02-14</lastmod>
+  </url>
+  <!-- Batch 2 -->
+  <url>
+    <loc>https://victor-morel.com/blog/react-native-performance-optimization</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-07-08</lastmod>
+  </url>
+  <url>
+    <loc>https://victor-morel.com/blog/computer-vision-ocr-pipeline-production</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-06-30</lastmod>
+  </url>
+  <url>
+    <loc>https://victor-morel.com/blog/prompt-engineering-production-llm</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-06-02</lastmod>
+  </url>
+  <url>
+    <loc>https://victor-morel.com/blog/pwa-vs-native-2026</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-15</lastmod>
+  </url>
+  <url>
+    <loc>https://victor-morel.com/blog/core-web-vitals-high-traffic</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-04-25</lastmod>
+  </url>
+  <url>
+    <loc>https://victor-morel.com/blog/web3-ux-self-custodial-wallets</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-03-05</lastmod>
   </url>
 </urlset>
