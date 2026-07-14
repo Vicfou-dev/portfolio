@@ -1,12 +1,11 @@
 import { createRequestHandler } from 'react-router'
+// Import the already-compiled server bundle (react-router build resolves the virtual module)
+import * as build from '../build/server/index.js'
 
-// Cloudflare Workers fetch handler — used by wrangler deploy
+const handler = createRequestHandler(build, 'production')
+
 export default {
   async fetch(request, env, ctx) {
-    const handler = createRequestHandler(
-      () => import('virtual:react-router/server-build'),
-      import.meta.env.MODE
-    )
     return handler(request)
   },
 }
