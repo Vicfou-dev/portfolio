@@ -6,6 +6,7 @@ export default defineConfig(({ isSsrBuild }) => ({
   plugins: [
     reactRouter(),
     !isSsrBuild && VitePWA({
+      outDir: 'build/client',
       registerType: 'autoUpdate',
       injectRegister: null,
       includeAssets: ['favicon.svg', 'pwa-icon.svg', 'robots.txt'],
